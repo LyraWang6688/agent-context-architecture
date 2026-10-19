@@ -49,6 +49,8 @@ Agent Context Architecture/
 | 王颖是谁、她的背景、有什么环境和工具 | [`memory.md`](memory.md) |
 | 所有项目都必须遵守什么（工程质量、严谨性、Git） | [`global.md`](global.md) |
 | 某个第三方系统怎么接、哪里会翻车 | [`integrations/README.md`](integrations/README.md) |
+| 飞书 CLI 与 OpenAPI 的形态差异、踩过的坑 | [`integrations/feishu.md`](integrations/feishu.md) |
+| **配置 GitHub 仓库 / 安全基线 / CI 门禁** | **[`integrations/github.md`](integrations/github.md)** |
 | 什么必须自动发生、什么会被系统拦 | [`hooks/README.md`](hooks/README.md) |
 
 ---
