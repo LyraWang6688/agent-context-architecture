@@ -5,6 +5,13 @@
 >
 > **本条目的抽象原则**：这里只放**换一个项目仍然成立**的规则。
 > 项目特有的要求（技术栈、目录、端口、模块边界）留在**那个项目的 AGENTS.md**，不进这里。
+>
+> **本文件与 AGENTS.md 的关系**：它是**项目级 AGENTS.md 的共性上游**。
+> `global.md` 提供跨项目的 conventions；每个项目的 `AGENTS.md` 提供 build / test / style
+> 等操作性信息，并吸收本文件的共性。见 G19。
+>
+> 格式遵循 [AGENTS.md 官方约定](https://github.com/agentsmd/agents.md)：**标准 Markdown，
+> 无必填字段，任意标题结构**。
 
 ---
 
@@ -495,6 +502,59 @@ topics 无出处   →  下一个人必须从头猜（实测：自动化推导 t
 
 **效力**：hard
 **来源**：王颖 2026-10-20 指出「审计只审有没有，执行是我们」+ MAINTAINER-GUIDE D4/D6/第五节
+
+---
+
+## G19 · 项目 AGENTS.md 是 README 的补充，不是复制
+
+**规则**
+
+每个项目的 `AGENTS.md` 放的是**「agent 干活需要、但放进 README 会显得杂乱」**的信息。
+**它补充 README，不是替代 README，也不是 README 的翻译版。**
+
+**必须覆盖**
+
+| 节 | 回答什么 |
+|---|---|
+| 项目概述 | 这是什么、给谁用 |
+| **构建与测试命令** | **怎么跑起来、怎么测**（最重要，缺了 agent 就得自己猜） |
+| 代码风格约定 | 新代码写成什么样 |
+| 测试说明 | 测什么、怎么算通过 |
+| 安全注意事项 | **什么不能碰** |
+
+**有则补**：commit / PR 规范、安全陷阱、大数据集处理、部署步骤。
+
+**和 `global.md` 的关系**
+
+```
+global.md        →  跨项目的 conventions（所有项目共性）
+项目 AGENTS.md   →  本项目的操作性信息（build / test / style）
+                 +  吸收 global 的共性
+```
+
+> **不要把 `global.md` 整份抄进项目 AGENTS.md**——那是两份真相。
+> 也不要只写一句「见 global.md」——agent 不会主动跨仓库跳转。
+
+**判据**
+
+一个**不熟悉这个项目**的 agent，只读 `AGENTS.md`，能不能知道：
+- 怎么把项目跑起来
+- 怎么验证改动是对的
+- 什么绝对不能碰
+
+**实测缺口**（2026-10-20）
+
+| 项目 | 构建/测试 | 风格约定 | 安全边界 |
+|---|---|---|---|
+| `feishu-retail-ops` · `teaming-bot` | ✓ | ✓ | ✓ |
+| `InvestDesk` | ✓ | ✗ | ✓ |
+| `personal-ip-hub` | ✓ | ✗ | ✗ |
+| **`ai-capability-store`** | **✗** | **✗** | **✗** |
+
+**效力**：hard
+**来源**：王颖 2026-10-20 提出；依据 [AGENTS.md 官方](https://github.com/agentsmd/agents.md)
+（OpenAI Codex 发起，Amp / Google Jules / Cursor / Factory 共同，现由 Linux Foundation 下
+Agentic AI Foundation 托管）+ 5 个项目 AGENTS.md 实测
 
 ---
 
