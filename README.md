@@ -17,3 +17,5 @@
 - `hooks/` — Hook
 
 设计原则：**信息放在正确的层级**；规则必须可判定；集成知识靠验证定对错、不抄官方文档。
+
+[![](https://img.shields.io/badge/powered_by-dsh-4D6BFE?style=flat-square&logo=deepseek&logoColor=white)](https://github.com/deepseek-ai/deepseek-harness)
