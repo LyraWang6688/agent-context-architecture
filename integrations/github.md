@@ -101,15 +101,34 @@ source: 实测 LyraWang6688/feishu-retail-ops（样板仓库）
 
 ## B1 · 合并后自动删除 head 分支 ★
 
+> **硬要求：所有未归档仓库必须开启。新建仓库时第一件事就是开它。**
+
 - **价值**：**直接解决「已合并 PR 的分支一直不删」**
-- **为什么列第一**：一个开关，永久生效，服务端执行
+- **为什么列第一**：一个开关，永久生效，服务端执行。
+  **这是唯一能让「分支不堆积」从「靠自觉」变成「自动」的开关。**
 - **怎么开**：Settings → General → Pull Requests → ✅ Automatically delete head branches
+- **批量开**：
+  ```bash
+  gh api --method PATCH repos/OWNER/REPO -F delete_branch_on_merge=true
+  ```
 - **验证**：
   ```bash
-  gh api repos/OWNER/REPO --jq '.delete_branch_on_merge'
-  # 期望 true
+  gh api repos/OWNER/REPO --jq '.delete_branch_on_merge'   # 期望 true
   ```
-- [ ] 已开启
+
+### ⚠️ 它只解决「未来」，不解决「过去」
+
+```
+开之前：每合一个 PR → 多一个残留分支（永远清不完）
+开之后：合 PR 时自动删  → 不再新增
+但：    已经堆着的，不会因为开了开关而消失 → 要手工清（用 repo-wrapup）
+```
+
+**实测（2026-10-20）**：一次性为 **7 个未归档仓库**开启（5 公开 + 2 私有）。
+开启前 `ai-capability-store` 已累积 **17 个本地 + 22 个远端**已合并分支——
+这些是开关开启前的历史残留，需要另外处理。
+
+- [x] 未归档仓库已全部开启（2026-10-20）
 
 ## B2 · main 分支保护 / Ruleset
 
