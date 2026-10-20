@@ -48,10 +48,10 @@ Agent Context Architecture/
 | **agent 该怎么工作**（怎么下结论、怎么说、怎么开会话、怎么交接） | [`preferences.md`](preferences.md) |
 | 王颖喜欢 agent 怎么和她合作（详略、节奏、输出方式） | [`preferences.md`](preferences.md) |
 | 王颖是谁、她的背景、有什么环境和工具 | [`memory.md`](memory.md) |
-| **产出物该长什么样**（代码结构、可维护性、仓库与文档） | [`global.md`](global.md) |
+| **平台无关的工程约定**（代码结构、可维护性） | [`global.md`](global.md) |
 | 某个第三方系统怎么接、哪里会翻车 | [`integrations/README.md`](integrations/README.md) |
 | 飞书 CLI 与 OpenAPI 的形态差异、踩过的坑 | [`integrations/feishu.md`](integrations/feishu.md) |
-| **配置 GitHub 仓库 / 安全基线 / CI 门禁** | **[`integrations/github.md`](integrations/github.md)** |
+| **GitHub 的一切**（安全基线 / CI 门禁 / README / topics / llms.txt / AGENTS.md） | **[`integrations/github.md`](integrations/github.md)** |
 | 什么必须自动发生、什么会被系统拦 | [`hooks/README.md`](hooks/README.md) |
 
 ---
@@ -59,21 +59,29 @@ Agent Context Architecture/
 ## 五个部分怎么区分（最容易混的地方）
 
 ```
-preferences   约束「agent 行为」 —— 怎么想、怎么说、怎么开会话
-              不会进任何项目的 AGENTS.md
+preferences   约束「agent 行为」   —— 怎么想、怎么说、怎么开会话
+                不会进任何项目的 AGENTS.md
 
-global        约束「产出物」     —— 代码、仓库、文档长什么样
-              是项目 AGENTS.md 的共性上游
+global        约束「产出物」       —— 但只装**平台无关**的工程约定
 
-memory        描述「是」         —— 不规定该做什么
-integrations  描述「世界」       —— 别人定的，靠验证定对错
-hooks         描述「事件」       —— 某某发生时，必须做某某
+integrations  两个都有：
+                ├ 平台规范（我们定的，只在那个平台成立）→ GitHub 的 README/topics
+                └ 世界的事实（别人定的，靠验证定对错）  → token 怎么刷新
+
+memory        描述「是」           —— 不规定该做什么
+hooks         描述「事件」         —— 某某发生时，必须做某某
 ```
 
-**三条最常混的线：**
+**注意 `integrations` 里两种东西都要写，但必须分清**：
+- **规范**（我们定的）→ 靠"同意"，不会过期
+- **事实**（别人定的）→ 靠"验证"，会过期
+
+**四条最常混的线：**
 
 - **preferences vs global**：**约束行为** 还是 **约束产出物**
   （行为准则实测在你的项目 AGENTS.md 里出现 **0 次**）
+- **global vs integrations**：**换平台还成立吗？**
+  （`文件超 800 行必须拆` → global；`topics 是布尔门` → integrations/github）
 - **memory vs global**：**描述「是」** 还是 **规定「该」**
 - **global vs hooks**：**状态** 还是 **事件**
 
