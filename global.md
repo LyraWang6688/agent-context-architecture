@@ -173,7 +173,49 @@ integrations/    = 平台特定的规范 + 世界的事实
 
 ---
 
----
+## G07 · 交接产物不进版本库
+
+**规则**
+
+HANDOFF 类文件（`HANDOFF.md`、`handoff-*.md`、交接笔记）是**临时工作产物**，
+不是项目资产。**必须写进 `.gitignore`，不要提交。**
+
+```gitignore
+HANDOFF.md
+HANDOFF/
+handoff-*.md
+*handoff*.md
+```
+
+**为什么**
+
+- 交接文档写给**「下一个 agent」**，时效性极强——过期后就是噪音
+- 提交后它会和 README / 真文档抢注意力，但内容很快失真
+- **真正的长期知识不该留在 handoff 里**：要么沉淀进 `AGENTS.md` / `docs/`，
+  要么沉淀进本库（`preferences` / `global` / `integrations`）
+
+**判据**
+
+- `.gitignore` 里有 handoff 模式
+- `git ls-files | grep -i handoff` 为空
+
+**已经提交了怎么办**
+
+```bash
+git rm --cached <file>     # 停止跟踪，本地文件保留
+```
+
+> ⚠️ `git rm --cached` 只对**之后的提交**生效。该文件仍存在于历史 commit 中——
+> 那通常可以接受（历史是历史，新提交不再带它）。
+
+**代价（必须知道）**
+
+handoff 不进 git ⇒ **换一台机器就看不到它**。
+所以跨机器交接**不能只靠 handoff 文件**——要么同步工作区，
+要么把关键结论写进 `AGENTS.md` / 项目文档。
+
+**效力**：hard
+**来源**：王颖 2026-10-22 提出；实测：3 个项目里 handoff 文件已被提交且未忽略
 
 ---
 
@@ -206,10 +248,16 @@ integrations/    = 平台特定的规范 + 世界的事实
 **2026-10-20 · 第二次：平台规范迁出**
 5 条 → `integrations/github.md`（R01–R05）。原因：它们全是 GitHub 平台特定的。
 
-| 原编号 | 规则 | 现位置 |
+> ⚠️ **下表是「迁移当时的旧编号」，与现在的 G 编号无关。**
+> 当前 G07 是**新规则**（交接产物不进版本库），不是被迁走的那条。
+
+| 旧编号 | 规则 | 现位置 |
 |---|---|---|
 | G07 | GitHub：git+gh / SSH | `integrations/github.md` R01 |
 | G08 | 仓库的对外呈现 | R02 |
 | G09 | topics 是布尔门 | R03 |
 | G10 | 机器可读产物与交接资产 | R04 |
 | G11 | 项目 AGENTS.md 是补充不是复制 | R05 |
+
+**2026-10-22 · 新增**
+G07 · 交接产物不进版本库

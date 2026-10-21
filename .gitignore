@@ -1,2 +1,12 @@
 .DS_Store
-_build
+
+# 构建 / 临时产物
+_build/
+
+# ── 交接产物（global.md G07）─────────────────────────────
+# HANDOFF 是临时工作产物，不是项目资产：时效性强，过期即噪音。
+# 长期知识应沉淀进 AGENTS.md / docs/ / 或本库，不要留在 handoff 里。
+HANDOFF.md
+HANDOFF/
+handoff-*.md
+*handoff*.md
