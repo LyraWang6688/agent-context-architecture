@@ -10,3 +10,10 @@ HANDOFF.md
 HANDOFF/
 handoff-*.md
 *handoff*.md
+
+# ── 个人工作产物（不进版本库）─────────────────────────────
+# TODO 是「我自己还没做的事」：时效性强，不该对外承诺。
+# 做完就删——留在这里会变成过期噪音。
+TODO.md
+todo.md
+TODO/
